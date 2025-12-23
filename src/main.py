@@ -139,3 +139,5 @@ if __name__ == "__main__":
     logger.remove()
     logger.add(sys.stderr, format="<green>{time:HH:mm:ss}</green> | <level>{message}</level>")
     main()
+
+ # Connection test     
