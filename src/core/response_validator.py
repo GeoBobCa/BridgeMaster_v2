@@ -1,7 +1,7 @@
 """
 src/core/response_validator.py
 
-THE RESPONDER (Module)
+THE RESPONDER  (Module)
 ----------------------
 Determines the valid SAYC *First Response* to an opening bid.
 This prevents the AI from hallucinating support without a fit, 

@@ -167,4 +167,4 @@ class DDSolver:
         return "\n".join(lines)
 
 # No __main__ block that runs logic here because it requires 
-# a complex 'Deal' object instantiation which is hard to mock purely in text.
+# a complex 'Deal' object instantiation which is hard to mock purely in  text.

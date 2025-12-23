@@ -1,7 +1,7 @@
 """
 src/parsers/lin_parser.py
 
-Handles the extraction of raw data from LIN files.
+Handles the extraction of raw data from LIN files .
 LIN files are messy, pipe-delimited strings used by BBO.
 
 CRITICAL ASSUMPTION:

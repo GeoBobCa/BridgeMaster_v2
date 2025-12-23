@@ -1,7 +1,7 @@
 """
 src/core/hand_validator.py
 
-THE REFEREE (Module) - v2.0
+THE REFEREE (Module) -  v2.0
 --------------------
 Updates:
 - Added Strong 2C logic (22+ HCP)
