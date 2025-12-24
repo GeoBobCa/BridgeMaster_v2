@@ -1,0 +1,139 @@
+{
+  "facts": {
+    "board": "Unknown",
+    "source_file": "4571363697",
+    "dealer": "South",
+    "vulnerability": "All",
+    "hands": {
+      "North": {
+        "name": "BeaPercy",
+        "stats": {
+          "hcp": 16,
+          "cards": {
+            "S": "24JQ",
+            "H": "Q",
+            "D": "5JKA",
+            "C": "38TK"
+          }
+        }
+      },
+      "South": {
+        "name": "Fish075",
+        "stats": {
+          "hcp": 9,
+          "cards": {
+            "S": "9K",
+            "H": "47TK",
+            "D": "389Q",
+            "C": "67J"
+          }
+        }
+      },
+      "East": {
+        "name": "bobj245",
+        "stats": {
+          "hcp": 11,
+          "cards": {
+            "S": "A7",
+            "H": "J52",
+            "D": "764",
+            "C": "AQ954"
+          }
+        }
+      },
+      "West": {
+        "name": "georgenamg",
+        "stats": {
+          "hcp": 4,
+          "cards": {
+            "S": "3568T",
+            "H": "3689A",
+            "D": "2T",
+            "C": "2"
+          }
+        }
+      }
+    },
+    "auction": [
+      "p",
+      "p",
+      "1D",
+      "p",
+      "1H",
+      "p",
+      "1S",
+      "p",
+      "2D",
+      "p",
+      "3D",
+      "p",
+      "p",
+      "p"
+    ],
+    "contract": "3D",
+    "declarer": "N",
+    "declarer_full": "North",
+    "tricks_taken": 0,
+    "result_display": "3D -9",
+    "doubled": "",
+    "handviewer_url": "http://www.bridgebase.com/tools/handviewer.html?n=s24JQhQd5JKAc38TK&s=s9Kh47TKd389Qc67J&e=sA7hJ52d764cAQ954&w=s3568Th3689Ad2Tc2&d=s&v=b&b=Unknown&a=p-p-1D-p-1H-p-1S-p-2D-p-3D-p-p-p"
+  },
+  "dds": {
+    "N": {
+      "S": 7,
+      "H": 6,
+      "D": 8,
+      "C": 8,
+      "N": 9
+    },
+    "S": {
+      "S": 7,
+      "H": 5,
+      "D": 8,
+      "C": 8,
+      "N": 9
+    },
+    "E": {
+      "S": 6,
+      "H": 7,
+      "D": 4,
+      "C": 5,
+      "N": 4
+    },
+    "W": {
+      "S": 6,
+      "H": 7,
+      "D": 4,
+      "C": 5,
+      "N": 4
+    }
+  },
+  "ai_analysis": {
+    "verdict": "Weak hand, pass pre-emptively.",
+    "actual_critique": [
+      "With only 9 HCP and a 4-4-3-2 distribution, passing is the most reasonable action as dealer.",
+      "The double dummy analysis shows potential for 8 tricks in Diamonds or Clubs for N/S, but this requires optimal play and a suitable partner hand. It is unlikely you can achieve this from the opening lead."
+    ],
+    "basic_section": {
+      "analysis": "As the dealer with only 9 high card points, you have insufficient strength to open the bidding. Your distribution is relatively flat, which further reduces the hand's value. The best course of action is to pass and wait to see what the other players bid.",
+      "recommended_auction": [
+        {
+          "bid": "PASS",
+          "explanation": "Insufficient strength to open."
+        }
+      ]
+    },
+    "advanced_section": {
+      "analysis": "While the double dummy analysis suggests a high ceiling with optimal play, this relies heavily on partner's hand and the opponents' bidding. Attempting to force the bidding with a weak hand like this is risky and could lead to a significant penalty.",
+      "sequence": []
+    },
+    "coaches_corner": [
+      {
+        "player": "General",
+        "category": "Strategy",
+        "topic": "Patience",
+        "advice": "In bridge, patience is key. Not every hand is a winner. Sometimes the best play is to pass and let the opponents make mistakes."
+      }
+    ]
+  }
+}

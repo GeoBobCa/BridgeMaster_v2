@@ -1,0 +1,136 @@
+{
+  "facts": {
+    "board": "Unknown",
+    "source_file": "4571361325",
+    "dealer": "East",
+    "vulnerability": "EW",
+    "hands": {
+      "North": {
+        "name": "BeaPercy",
+        "stats": {
+          "hcp": 14,
+          "cards": {
+            "S": "2TQ",
+            "H": "6J",
+            "D": "TJQ",
+            "C": "26JKA"
+          }
+        }
+      },
+      "South": {
+        "name": "Fish075",
+        "stats": {
+          "hcp": 11,
+          "cards": {
+            "S": "5J",
+            "H": "29TA",
+            "D": "456A",
+            "C": "38Q"
+          }
+        }
+      },
+      "East": {
+        "name": "bobj245",
+        "stats": {
+          "hcp": 7,
+          "cards": {
+            "S": "A9743",
+            "H": "K73",
+            "D": "873",
+            "C": "T5"
+          }
+        }
+      },
+      "West": {
+        "name": "georgenamg",
+        "stats": {
+          "hcp": 8,
+          "cards": {
+            "S": "68K",
+            "H": "458Q",
+            "D": "29K",
+            "C": "479"
+          }
+        }
+      }
+    },
+    "auction": [
+      "p",
+      "p",
+      "p",
+      "1C",
+      "1S",
+      "2H",
+      "p",
+      "3C",
+      "p",
+      "p",
+      "p"
+    ],
+    "contract": "3C",
+    "declarer": "N",
+    "declarer_full": "North",
+    "tricks_taken": 0,
+    "result_display": "3C -9",
+    "doubled": "",
+    "handviewer_url": "http://www.bridgebase.com/tools/handviewer.html?n=s2TQh6JdTJQc26JKA&s=s5Jh29TAd456Ac38Q&e=sA9743hK73d873cT5&w=s68Kh458Qd29Kc479&d=e&v=e&b=Unknown&a=p-p-p-1C-1S-2H-p-3C-p-p-p"
+  },
+  "dds": {
+    "N": {
+      "S": 7,
+      "H": 8,
+      "D": 9,
+      "C": 10,
+      "N": 8
+    },
+    "S": {
+      "S": 7,
+      "H": 8,
+      "D": 9,
+      "C": 10,
+      "N": 8
+    },
+    "E": {
+      "S": 6,
+      "H": 5,
+      "D": 4,
+      "C": 3,
+      "N": 4
+    },
+    "W": {
+      "S": 6,
+      "H": 5,
+      "D": 4,
+      "C": 3,
+      "N": 4
+    }
+  },
+  "ai_analysis": {
+    "verdict": "Weak hand, best to pass initially.",
+    "actual_critique": [
+      "With only 7 HCP and a 5-3-3-2 distribution, this hand is too weak to open the bidding.",
+      "While you have a five-card spade suit, the lack of high card points makes a preemptive opening risky."
+    ],
+    "basic_section": {
+      "analysis": "This hand contains only 7 high card points (HCP). The standard guideline for opening the bidding is 12 HCP or more. Since this hand falls far short of that requirement, the best action is to pass. The distribution is somewhat favorable with a five-card spade suit, but not strong enough to compensate for the lack of points. Avoid the temptation to bid just because you have a five-card suit.",
+      "recommended_auction": [
+        {
+          "bid": "PASS",
+          "explanation": "Insufficient high card points to open."
+        }
+      ]
+    },
+    "advanced_section": {
+      "analysis": "The double dummy analysis indicates that North-South could potentially make 10 tricks in clubs with optimal play. However, reaching such a contract from this hand would be highly unlikely and depend heavily on partner's strength and the opponents' bidding. The 5-3-3-2 distribution offers limited defensive value. A forcing opening would likely lead to an overbid and a poor result.",
+      "sequence": []
+    },
+    "coaches_corner": [
+      {
+        "player": "General",
+        "category": "Strategy",
+        "topic": "Patience",
+        "advice": "Sometimes the best play is to sit back and let the opponents bid. Don't force a bid with a weak hand."
+      }
+    ]
+  }
+}

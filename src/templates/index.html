@@ -1,0 +1,19 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8"><title>Bridge Session</title>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        </head>
+        <body class="bg-light"><div class="container py-5"><h1 class="mb-4">Bridge Session</h1><div class="row">
+        {% for item in hands %}
+        <div class="col-md-3 mb-3"><div class="card shadow-sm h-100"><div class="card-body text-center">
+            <h5 class="card-title">{{ item.facts.board }}</h5>
+            <span class="badge bg-primary mb-3">{{ item.ai_analysis.get('verdict', 'Pending') }}</span>
+            <p class="card-text fw-bold">{{ item.facts.result_display }}</p>
+            <p class="card-text small text-muted">by {{ item.facts.declarer_full }}</p>
+            <a href="{{ item.facts.board | replace(' ', '_') }}.html" class="btn btn-outline-dark btn-sm w-100">View</a>
+        </div></div></div>
+        {% endfor %}
+        </div></div></body></html>
+        

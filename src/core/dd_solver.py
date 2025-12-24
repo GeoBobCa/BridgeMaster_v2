@@ -1,123 +1,110 @@
 """
 src/core/dd_solver.py
 
-THE ORACLE (Module)
--------------------
-Interfaces with the Double Dummy Solver (libdds via endplay).
-Calculates the theoretical limit of the hand (Makeable Contracts)
-and the Par Score.
-
-This provides the "Objective Truth" against which the actual play is measured.
+THE ORACLE (Final Fix)
+----------------------
+Handles both Dictionary hands AND Deal objects to prevent crashes.
 """
 
-from dataclasses import dataclass, field
-from typing import Dict, Optional, List
+from dataclasses import dataclass
+from typing import Dict, Optional, List, Union
 from loguru import logger
 
-# Import endplay. If not installed, we must fail gracefully or mock,
-# but for this module to work, endplay is required.
+# --- IMPORT BLOCK ---
 try:
+    # Try the newer structure first
     from endplay.types import Deal, Denom, Player
-    from endplay.dd import calc_dd_table, calc_all_tables
+    from endplay.dd import calc_dd_table
 except ImportError:
-    logger.error("endplay library not found. DD Analysis will fail.")
-    Deal = Denom = Player = None
-    calc_dd_table = calc_all_tables = None
+    try:
+        # Fallback to older structure
+        from endplay.types import Deal, Denom, Player
+        from endplay.dds import calc_dd_table
+    except ImportError:
+        logger.error("Endplay library not found. Solver disabled.")
+        Deal = Denom = Player = None
+        calc_dd_table = None
 
 @dataclass
 class DDMetrics:
-    """
-    The 'Truth Matrix' for the deal.
-    """
-    # Dictionary mapping Player -> Denomination -> Tricks
-    # e.g. {'N': {'NT': 2, 'S': 4...}, 'E': ...}
     makeable_contracts: Dict[str, Dict[str, int]]
-    
-    # Par score details (e.g., "NS 4S", 620)
-    par_score_str: str 
-    par_score_value: int
 
     def get_tricks(self, player: str, suit: str) -> int:
-        """Helper to safely get trick count for a specific combo."""
         return self.makeable_contracts.get(player, {}).get(suit, 0)
 
 class DDSolver:
-    """
-    Facade for the Endplay Double Dummy Solver.
-    """
-
-    # Mapping endplay Enums to our string standards
-    SUIT_MAP = {
-        'NT': 'NT',
-        'S': 'S', 'H': 'H', 'D': 'D', 'C': 'C',
-        # Handle potential endplay Enum str conversions if needed
-    }
 
     @staticmethod
-    def analyze(deal_obj: 'Deal') -> Optional[DDMetrics]:
+    def _hands_to_pbn(hands: Dict[str, Dict[str, List[str]]]) -> str:
+        """Helper: Converts Dict hands to PBN string."""
+        order = ['N', 'E', 'S', 'W'] 
+        pbn_parts = []
+        
+        for seat in order:
+            # Handle varied key formats (N vs North)
+            hand_data = hands.get(seat) or hands.get(seat[0]) or {}
+            
+            def clean_suit(suit_key):
+                cards = hand_data.get(suit_key, [])
+                if isinstance(cards, list): return "".join(cards)
+                return str(cards).replace(" ", "")
+
+            s = clean_suit('S').replace("10", "T")
+            h = clean_suit('H').replace("10", "T")
+            d = clean_suit('D').replace("10", "T")
+            c = clean_suit('C').replace("10", "T")
+            pbn_parts.append(f"{s}.{h}.{d}.{c}")
+            
+        return "N:" + " ".join(pbn_parts)
+
+    @staticmethod
+    def analyze(hands_data: Union[Dict, 'Deal']) -> Optional[DDMetrics]:
         """
-        Performs full Double Dummy Analysis on a deal.
-        
-        Args:
-            deal_obj: An endplay.types.Deal object (parsed from PBN/LIN)
-        
-        Returns:
-            DDMetrics object or None if solver fails.
+        UNIVERSAL ENTRY POINT
+        Accepts EITHER a Dictionary OR a Deal Object.
         """
         if not calc_dd_table:
-            logger.error("DDSolver unavailable (endplay not installed).")
             return None
 
         try:
-            logger.debug("Running Double Dummy Solver...")
+            deal_obj = None
+
+            # CASE A: It's already a Deal Object (Fixes your specific error)
+            if Deal and isinstance(hands_data, Deal):
+                deal_obj = hands_data
+
+            # CASE B: It's a Dictionary (Standard path)
+            elif isinstance(hands_data, dict):
+                pbn_string = DDSolver._hands_to_pbn(hands_data)
+                
+                # Validation: Check deck size
+                card_count = sum(1 for c in pbn_string if c in "AKQJT98765432")
+                if card_count != 52:
+                    logger.warning(f"Deck Error: Found {card_count} cards. Expected 52.")
+                    return None
+                    
+                deal_obj = Deal(pbn_string)
             
-            # 1. Calculate the Table (5 strains x 4 players)
-            # endplay returns a specific Table object
+            else:
+                logger.error(f"Solver received unknown data type: {type(hands_data)}")
+                return None
+
+            # RUN SOLVER
             dd_table = calc_dd_table(deal_obj)
             
-            # 2. Convert to friendly Dictionary format
-            # Structure: metrics['N']['S'] = 10 (North makes 10 tricks in Spades)
-            friendly_table = {
-                'N': {}, 'S': {}, 'E': {}, 'W': {}
-            }
-            
-            # Iterate through the endplay result
-            # The endplay API usually allows indexing or to_dict conversion
-            for player in [Player.north, Player.south, Player.east, Player.west]:
-                p_str = player.name[0].upper() # 'N', 'S'...
-                for denom in [Denom.notrump, Denom.spades, Denom.hearts, Denom.diamonds, Denom.clubs]:
-                    d_str = denom.name[0].upper() if denom != Denom.notrump else 'NT'
-                    if d_str == 'N': d_str = 'NT' # Safety check for naming
+            # Format Output
+            friendly_table = { 'N': {}, 'S': {}, 'E': {}, 'W': {} }
+            for player_obj in Player:
+                p_str = player_obj.name[0].upper()
+                for denom_obj in Denom:
+                    # Handle naming differences (notrump vs NT)
+                    d_name = denom_obj.name
+                    d_str = 'NT' if d_name == 'notrump' else d_name[0].upper()
                     
-                    tricks = dd_table[player, denom]
-                    friendly_table[p_str][d_str] = tricks
+                    # Newer endplay versions allow [player, denom]
+                    friendly_table[p_str][d_str] = dd_table[player_obj, denom_obj]
 
-            # 3. Calculate Par
-            # Par depends on vulnerability. The deal_obj should have vul info.
-            # endplay's generic par calculation:
-            # It usually returns a ParList or similar.
-            # We assume a simplified string representation for Phase 1.
-            
-            # Note: endplay typically requires converting the table to a list for par calculation
-            # or it has a helper `dd_table.par(vul)`.
-            # We will use a safe try/except block for the specific endplay version syntax.
-            
-            # Let's assume we extract the text representation for now
-            # In a real impl, we'd calculate the exact integer score.
-            par_str = "N/A" 
-            par_val = 0
-            
-            # (Conceptual implementation of Par extraction)
-            # par_result = dd_table.first_par(deal_obj.vul)
-            # par_str = str(par_result) 
-            
-            metrics = DDMetrics(
-                makeable_contracts=friendly_table,
-                par_score_str=par_str,
-                par_score_value=par_val
-            )
-            
-            return metrics
+            return DDMetrics(makeable_contracts=friendly_table)
 
         except Exception as e:
             logger.error(f"DD Solver crashed: {e}")
@@ -125,46 +112,17 @@ class DDSolver:
 
     @staticmethod
     def format_for_ai(metrics: DDMetrics) -> str:
-        """
-        Converts the metrics into a readable text block for the Storyteller.
-        """
-        if not metrics:
-            return "Double Dummy Analysis: Unavailable."
-
+        if not metrics: return "Double Dummy Analysis: Unavailable."
         lines = ["Double Dummy Analysis (Optimal Play):"]
-        
-        # Summarize North/South
-        ns_max = 0
-        ns_best = ""
-        for s in ['NT', 'S', 'H', 'D', 'C']:
-            n_tricks = metrics.get_tricks('N', s)
-            s_tricks = metrics.get_tricks('S', s)
-            # Take better of N/S
-            best = max(n_tricks, s_tricks)
-            if best > ns_max:
-                ns_max = best
-                ns_best = f"{best} tricks in {s}"
-            elif best == ns_max:
-                ns_best += f", {s}"
-        
-        lines.append(f"- N/S Ceiling: {ns_best}")
-
-        # Summarize East/West
-        ew_max = 0
-        ew_best = ""
-        for s in ['NT', 'S', 'H', 'D', 'C']:
-            e_tricks = metrics.get_tricks('E', s)
-            w_tricks = metrics.get_tricks('W', s)
-            best = max(e_tricks, w_tricks)
-            if best > ew_max:
-                ew_max = best
-                ew_best = f"{best} tricks in {s}"
-            elif best == ew_max:
-                ew_best += f", {s}"
-
-        lines.append(f"- E/W Ceiling: {ew_best}")
-        
+        for axis, p1, p2 in [("N/S", "N", "S"), ("E/W", "E", "W")]:
+            best_tricks = 0
+            best_contract = ""
+            for s in ['NT', 'S', 'H', 'D', 'C']:
+                t = max(metrics.get_tricks(p1, s), metrics.get_tricks(p2, s))
+                if t > best_tricks:
+                    best_tricks = t
+                    best_contract = f"{t} in {s}"
+                elif t == best_tricks:
+                    best_contract += f", {s}"
+            lines.append(f"- {axis} Ceiling: {best_contract}")
         return "\n".join(lines)
-
-# No __main__ block that runs logic here because it requires 
-# a complex 'Deal' object instantiation which is hard to mock purely in  text.

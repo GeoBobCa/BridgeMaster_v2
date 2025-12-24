@@ -1,0 +1,394 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8"><title>o12</title>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <style>
+                .hand-box { background: #fdfdfd; border: 1px solid #ccc; padding: 10px; border-radius: 5px; font-size: 0.9rem; }
+                .suit-symbol { display: inline-block; width: 15px; text-align: center; font-weight: bold; }
+                .suit-S { color: black; } .suit-H { color: red; } .suit-D { color: orange; } .suit-C { color: green; }
+                .dealer-badge { background-color: #000; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 0.7em; margin-left: 5px; }
+                .dir-badge { width: 35px; text-align: center; display: inline-block; margin-right: 10px; font-weight: bold; background-color: #6c757d; color: white; border-radius: 4px; padding: 2px 0; }
+                .coach-card { background-color: #f8f9fa; border-left: 5px solid #0dcaf0; }
+                .adv-card { background-color: #fff3cd; border-left: 5px solid #ffc107; }
+                .dds-table th, .dds-table td { text-align: center; padding: 4px; font-family: monospace; }
+                .dds-make { background-color: #d4edda; color: #155724; font-weight: bold; }
+                .auction-table th { text-align: center; background-color: #f8f9fa; color: #666; font-size: 0.85rem; }
+                .auction-table td { text-align: center; font-family: monospace; font-size: 1.1rem; height: 40px; }
+            </style>
+        </head>
+        <body class="bg-white"><div class="container py-4">
+            <div class="d-flex justify-content-between mb-4">
+                <a href="index.html" class="btn btn-outline-secondary">&larr; Back</a>
+                <h2 class="m-0">o12 <span class="badge bg-primary fs-6 align-middle ms-2">Analyzed</span></h2>
+                <a href="http://www.bridgebase.com/tools/handviewer.html?n=sK87hAQ74dAT63cKJ&s=sQ96hKJ32dK987c43&e=sA542h6dQJ54cQ752&w=sJT3hT985d2cAT986&d=e&v=n&b=o12" target="_blank" class="btn btn-danger">Replay</a>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-md-8">
+                    <div class="card bg-success bg-opacity-10 border-success h-100">
+                        <div class="card-body position-relative" style="min-height: 400px;">
+                            <div class="position-absolute top-50 start-50 translate-middle text-center bg-white p-3 border rounded shadow-sm" style="z-index: 2;">
+                                <strong>o12</strong><br>
+                                Dlr: East | Vul: None
+                            </div>
+                            
+                            
+                            <div class="position-absolute top-0 start-50 translate-middle-x mt-2 w-50">
+                                <div class="hand-box shadow-sm">
+                                    <strong>North</strong> (Unknown)
+                                    
+                                    <div class="float-end fw-bold">17 HCP</div>
+                                    <hr class="my-1">
+                                    <div><span class="suit-symbol suit-S">♠</span> K87</div><div><span class="suit-symbol suit-H">♥</span> AQ74</div><div><span class="suit-symbol suit-D">♦</span> AT63</div><div><span class="suit-symbol suit-C">♣</span> KJ</div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="position-absolute top-50 start-0 translate-middle-y ms-2 w-25">
+                                <div class="hand-box shadow-sm">
+                                    <strong>West</strong> (Unknown)
+                                    
+                                    <div class="float-end fw-bold">5 HCP</div>
+                                    <hr class="my-1">
+                                    <div><span class="suit-symbol suit-S">♠</span> JT3</div><div><span class="suit-symbol suit-H">♥</span> T985</div><div><span class="suit-symbol suit-D">♦</span> 2</div><div><span class="suit-symbol suit-C">♣</span> AT986</div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="position-absolute top-50 end-0 translate-middle-y me-2 w-25">
+                                <div class="hand-box shadow-sm">
+                                    <strong>East</strong> (Unknown)
+                                    <span class="dealer-badge">DLR</span>
+                                    <div class="float-end fw-bold">9 HCP</div>
+                                    <hr class="my-1">
+                                    <div><span class="suit-symbol suit-S">♠</span> A542</div><div><span class="suit-symbol suit-H">♥</span> 6</div><div><span class="suit-symbol suit-D">♦</span> QJ54</div><div><span class="suit-symbol suit-C">♣</span> Q752</div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="position-absolute bottom-0 start-50 translate-middle-x mb-2 w-50">
+                                <div class="hand-box shadow-sm">
+                                    <strong>South</strong> (Unknown)
+                                    
+                                    <div class="float-end fw-bold">9 HCP</div>
+                                    <hr class="my-1">
+                                    <div><span class="suit-symbol suit-S">♠</span> Q96</div><div><span class="suit-symbol suit-H">♥</span> KJ32</div><div><span class="suit-symbol suit-D">♦</span> K987</div><div><span class="suit-symbol suit-C">♣</span> 43</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card mb-3">
+                        <div class="card-header text-center">
+                            <span class="fs-5 fw-bold">Pass</span><br>
+                            <span class="text-muted small">by </span>
+                        </div>
+                        <div class="card-body p-0">
+                            <table class="table table-bordered mb-0 auction-table">
+                                <thead><tr><th>WEST</th><th>NORTH</th><th>EAST</th><th>SOUTH</th></tr></thead>
+                                <tbody>
+                                    <tr>
+                                    
+                                    <td></td><td></td>
+                                    
+                                    
+                                    
+                                    <td></td><td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card border-info">
+                        <div class="card-header bg-info text-white">Double Dummy Analysis</div>
+                        <div class="card-body p-0">
+                            
+                            <table class="table table-sm table-bordered mb-0 dds-table">
+                                <thead class="table-light"><tr><th></th><th>NT</th><th><span class="suit-S">♠</span></th><th><span class="suit-H">♥</span></th><th><span class="suit-D">♦</span></th><th><span class="suit-C">♣</span></th></tr></thead>
+                                <tbody>
+                                    
+                                    <tr>
+                                        <td><strong>N</strong></td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">8</td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">7</td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">9</td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">9</td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">5</td>
+                                        
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>S</strong></td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">8</td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">7</td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">9</td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">9</td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">5</td>
+                                        
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>E</strong></td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">4</td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">6</td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">4</td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">4</td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">8</td>
+                                        
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><strong>W</strong></td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">4</td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">6</td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">4</td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">4</td>
+                                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                
+                                            
+                                            
+                                            <td class="">8</td>
+                                        
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="section-header">🔍 1. Critique</h4>
+            <div class="mb-5">
+                
+                <ul class="list-group"><li class="list-group-item border-0">🔹 {'verdict': 'Weak hand, passive bidding advised.', 'actual_critique': ['With only 9 HCP and a 4-4-4-1 distribution, your hand lacks the strength to actively bid.', 'Passing is the recommended action due to the insufficient high card points.', "The double dummy analysis suggests that while N/S can make a maximum of 9 tricks in Hearts or Diamonds, E/W can make 8 tricks in Clubs. This highlights the defensive potential of the hand, but it doesn't warrant an opening bid."], 'basic_section': {'analysis': 'This hand is considered weak because it contains only 9 high card points (HCP). In bridge, you generally need at least 12 HCP to open the bidding. The distribution of your hand (4-4-4-1) means you have four cards in three different suits and only one card in the remaining suit. This type of hand lacks a strong suit to lead with, making it difficult to control the play. A pass is therefore the most sensible action here.', 'recommended_auction': [{'bid': 'PASS', 'explanation': 'The best course of action. A pass is the most sensible action here due to the lack of high card points.'}]}, 'advanced_section': {'analysis': 'While a more aggressive player might consider a preemptive opening based on the distribution, the vulnerability and overall weakness of the hand make a pass the strategically sound choice. Consider the potential downsides of opening light and getting doubled. The double dummy analysis shows that the opponents have game potential in clubs, making it even more important to avoid gifting them extra tricks.', 'sequence': []}, 'coaches_corner': [{'player': 'South', 'category': 'Strategy', 'topic': 'Defensive Awareness', 'Advice': "Even with a weak hand, pay close attention to the bidding and the opening lead. Try to visualize the opponents' hands and identify opportunities to defend effectively. Focus on making good carding decisions to help your partner."}]}</li></ul>
+                
+            </div>
+            
+            <h4 class="section-header">📘 2. Fundamentals</h4>
+            <div class="card mb-5 border-primary">
+                <div class="card-body">
+                    
+                    <p class="lead">See critique above.</p>
+                    
+                    
+                </div>
+            </div>
+
+            <h4 class="section-header">🚀 3. Advanced Concepts</h4>
+            <div class="card mb-5 adv-card">
+                <div class="card-body">
+                    <p class="text-muted">Advanced analysis unavailable.</p>
+                </div>
+            </div>
+
+            <h4 class="section-header">🎓 4. Coach's Corner</h4>
+            <div class="row">
+                <div class="col-12"><p class="text-muted">No coaching tips generated.</p></div>
+            </div>
+        </div></body></html>
+        

@@ -1,0 +1,135 @@
+{
+  "facts": {
+    "board": "Unknown",
+    "source_file": "4571377417",
+    "dealer": "South",
+    "vulnerability": "None",
+    "hands": {
+      "North": {
+        "name": "BeaPercy",
+        "stats": {
+          "hcp": 13,
+          "cards": {
+            "S": "45KA",
+            "H": "J",
+            "D": "4JK",
+            "C": "245TJ"
+          }
+        }
+      },
+      "South": {
+        "name": "Fish075",
+        "stats": {
+          "hcp": 7,
+          "cards": {
+            "S": "6TJ",
+            "H": "48",
+            "D": "3679A",
+            "C": "79Q"
+          }
+        }
+      },
+      "East": {
+        "name": "bobj245",
+        "stats": {
+          "hcp": 9,
+          "cards": {
+            "S": "Q9873",
+            "H": "AKT5",
+            "D": "T52",
+            "C": "8"
+          }
+        }
+      },
+      "West": {
+        "name": "georgenamg",
+        "stats": {
+          "hcp": 11,
+          "cards": {
+            "S": "2",
+            "H": "23679Q",
+            "D": "8Q",
+            "C": "36KA"
+          }
+        }
+      }
+    },
+    "auction": [
+      "p",
+      "2H",
+      "3C",
+      "3H",
+      "p",
+      "4H",
+      "p",
+      "p",
+      "p"
+    ],
+    "contract": "4H",
+    "declarer": "W",
+    "declarer_full": "West",
+    "tricks_taken": 0,
+    "result_display": "4H -10",
+    "doubled": "",
+    "handviewer_url": "http://www.bridgebase.com/tools/handviewer.html?n=s45KAhJd4JKc245TJ&s=s6TJh48d3679Ac79Q&e=sQ9873hAKT5dT52c8&w=s2h23679Qd8Qc36KA&d=s&v=n&b=Unknown&a=p-2H-3C-3H-p-4H-p-p-p"
+  },
+  "dds": {
+    "N": {
+      "S": 7,
+      "H": 3,
+      "D": 9,
+      "C": 8,
+      "N": 5
+    },
+    "S": {
+      "S": 7,
+      "H": 3,
+      "D": 9,
+      "C": 8,
+      "N": 5
+    },
+    "E": {
+      "S": 5,
+      "H": 10,
+      "D": 4,
+      "C": 5,
+      "N": 6
+    },
+    "W": {
+      "S": 5,
+      "H": 10,
+      "D": 4,
+      "C": 5,
+      "N": 8
+    }
+  },
+  "ai_analysis": {
+    "verdict": "Weak hand, likely best to pass initially.",
+    "actual_critique": [
+      "With only 7 HCP and a 5-3-3-2 distribution, your hand lacks the strength to confidently open the bidding.",
+      "The double dummy analysis suggests that with optimal play, North/South can take up to 9 Diamond tricks, and East/West can take up to 10 Heart tricks, highlighting the vulnerability.",
+      "While you have a 5-card Spade suit, the low HCP makes it a borderline decision to open 1 Spade. A conservative approach is to pass and see what partner does."
+    ],
+    "basic_section": {
+      "analysis": "As a beginner, remember to primarily consider your high card points (HCP) when deciding whether to open the bidding. Generally, 12+ HCP is needed to open. Your hand has only 7 HCP, meaning you are likely too weak to initiate the bidding process.",
+      "recommended_auction": [
+        {
+          "bid": "PASS",
+          "explanation": "With only 7 HCP, it's best to pass and see what your partner bids. You can then evaluate your hand again based on their bid."
+        }
+      ]
+    },
+    "advanced_section": {
+      "analysis": "The double dummy analysis provides insights into the theoretical maximum number of tricks each side can take with perfect play. This information isn't available during the actual game but is useful for post-game analysis. With your weak hand, any active bidding might lead to overbidding and a poor contract. Keeping the auction low and gathering information is a better strategy.",
+      "sequence": []
+    },
+    "coaches_corner": [
+      {
+        "player": "General",
+        "category": "Strategy",
+        "topic": "Conservative Bidding",
+        "advice": "When in doubt with a weak hand, it is usually better to pass and let the opponents do the work. You may get a chance to support partner later."
+      }
+    ]
+  }
+}

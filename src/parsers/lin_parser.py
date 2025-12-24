@@ -1,12 +1,8 @@
 """
 src/parsers/lin_parser.py
 
-Handles the extraction of raw data from LIN files .
-LIN files are messy, pipe-delimited strings used by BBO.
-
-CRITICAL ASSUMPTION:
-This parser converts the obscure LIN format into clean Python dictionaries
-that the 'Referees' (Validators) can consume directly.
+Handles the extraction of raw data from LIN files.
+Includes logic to reconstruct the 4th hand ('Short Deck') if omitted by BBO.
 """
 
 import re
@@ -16,75 +12,63 @@ from loguru import logger
 
 @dataclass
 class BridgeGame:
-    """
-    Represents a single board parsed from a LIN file.
-    """
     board_id: str
-    player_names: Dict[str, str]  # {'S': 'User1', 'W': 'Bot', ...}
-    dealer: str # 'N', 'S', 'E', 'W'
-    vulnerability: str # 'None', 'NS', 'EW', 'All'
-    
-    # The Deal: {'S': {'S': ['K',...], 'H':...}, 'W': ...}
+    player_names: Dict[str, str]
+    dealer: str
+    vulnerability: str
     hands: Dict[str, Dict[str, List[str]]] 
-    
-    # The Auction: List of bids ['1N', 'p', '2C', 'p']
     auction: List[str]
-    
-    # The Play: List of cards played ['SA', 'S2', ...]
     play_log: List[str]
+    claimed_tricks: Optional[int] = None 
 
 class LinParser:
-    """
-    A robust, regex-based parser for LIN files.
-    """
-
     # Mapping LIN dealer codes to Compass
     DEALER_MAP = {'1': 'S', '2': 'W', '3': 'N', '4': 'E'}
-    
-    # Mapping LIN vulnerability codes
-    # o = None, n = NS, e = EW, b = Both
     VUL_MAP = {'o': 'None', '0': 'None', 'n': 'NS', 'e': 'EW', 'b': 'All'}
 
     @staticmethod
     def _parse_hand_string(hand_str: str) -> Dict[str, List[str]]:
-        """
-        Parses a single hand string like 'STHKD432C2' into a dict.
-        Handles the case where suit markers (S, H, D, C) might be absent if void?
-        Actually, LIN format usually looks like: S...H...D...C...
-        """
         suits = {'S': [], 'H': [], 'D': [], 'C': []}
         if not hand_str:
             return suits
             
-        # Regex to find suit markers and the cards following them
-        # Matches 'S' followed by chars that are NOT S,H,D,C
         pattern = re.compile(r"([SHDC])([^SHDC]*)")
         matches = pattern.findall(hand_str)
         
         for suit_char, cards in matches:
-            # Clean up the cards string (sometimes has trailing junk)
             clean_cards = list(cards.strip())
             suits[suit_char] = clean_cards
-            
         return suits
 
     @staticmethod
     def _fill_missing_hand(hands: Dict[str, Dict[str, List[str]]]) -> Dict[str, Dict[str, List[str]]]:
         """
-        If the LIN file omits the 4th hand (common optimization), calculate it.
-        This prevents the 'HandValidator' from crashing on the 4th player.
+        Reconstructs the 4th hand if BBO omitted it.
+        Fix: Checks for 0 cards, not just missing keys.
         """
-        # 1. Check which hand is missing
+        # 1. Identify the empty/missing seat
         missing_seat = None
+        
+        # Check all 4 seats
         for seat in ['S', 'W', 'N', 'E']:
-            if not hands.get(seat):
+            hand = hands.get(seat)
+            
+            # Condition A: Seat key doesn't exist
+            if hand is None:
+                missing_seat = seat
+                break
+                
+            # Condition B: Seat exists but has 0 cards (The "Short Deck" bug)
+            card_count = sum(len(cards) for cards in hand.values())
+            if card_count == 0:
                 missing_seat = seat
                 break
         
+        # If everyone has cards, we are good
         if not missing_seat:
-            return hands # All present
+            return hands 
 
-        # 2. Reconstruct the deck
+        # 2. Build a full deck
         full_deck = {
             'S': set('AKQJT98765432'),
             'H': set('AKQJT98765432'),
@@ -92,23 +76,24 @@ class LinParser:
             'C': set('AKQJT98765432')
         }
         
-        # 3. Remove known cards
+        # 3. Subtract all known cards
         for seat, hand in hands.items():
             if seat == missing_seat: continue
+            
             for suit, cards in hand.items():
                 for card in cards:
-                    # Handle '10' vs 'T' standardization if needed
+                    # Normalize '10' to 'T' for set matching if needed
                     c = 'T' if card == '10' else card
                     if c in full_deck[suit]:
                         full_deck[suit].remove(c)
 
-        # 4. Assign remaining to missing seat
+        # 4. Assign remaining cards to the missing seat
         restored_hand = {}
         for suit in ['S', 'H', 'D', 'C']:
-            # Sort for consistency (High to Low)
-            # Define rank order
+            # Sort them nicely (A -> 2)
             ranks = "AKQJT98765432"
-            sorted_cards = sorted(list(full_deck[suit]), key=lambda x: ranks.index(x))
+            # Helper to sort by rank index
+            sorted_cards = sorted(list(full_deck[suit]), key=lambda x: ranks.index(x) if x in ranks else 99)
             restored_hand[suit] = sorted_cards
             
         hands[missing_seat] = restored_hand
@@ -126,23 +111,9 @@ class LinParser:
 
     @classmethod
     def parse_content(cls, content: str) -> List[BridgeGame]:
-        """
-        Main parsing logic.
-        Splits content by line/record and extracts 'qx' (board), 'md' (deal), etc.
-        """
         games = []
-        
-        # LIN files often have one game per line, or one massive line.
-        # We assume standard BBO export format where pipe delimiters dictate fields.
-        
-        # A crude but effective way to split multiple games in one file
-        # is often looking for the 'qx' tag (Board ID). 
-        # But simpler: Treat the whole string as a stream of tags.
-        
-        # Tokenize by pipe '|'
         tokens = content.split('|')
         
-        # State machine variables
         current_board_id = "Unknown"
         current_players = {}
         current_dealer = 'S'
@@ -150,11 +121,11 @@ class LinParser:
         current_hands = {}
         current_auction = []
         current_play = []
+        current_claimed_tricks = None 
         
-        # Helper to commit a game to the list
         def commit_game():
             if current_hands:
-                # Fill missing hand if any
+                # Run the 4th hand logic before saving
                 full_hands = cls._fill_missing_hand(current_hands)
                 
                 game = BridgeGame(
@@ -164,115 +135,78 @@ class LinParser:
                     vulnerability=current_vul,
                     hands=full_hands,
                     auction=current_auction.copy(),
-                    play_log=current_play.copy()
+                    play_log=current_play.copy(),
+                    claimed_tricks=current_claimed_tricks 
                 )
                 games.append(game)
         
-        # Iterate tokens
         i = 0
         while i < len(tokens):
-            tag = tokens[i]
+            tag = tokens[i].strip()
             
-            # 1. BOARD ID (qx) - usually starts a new segment
             if tag == 'qx':
                 if i+1 < len(tokens):
-                    # If we already have data, commit previous game
-                    # (This logic implies we reset on every new board ID)
                     if current_hands: 
                         commit_game()
-                        # Reset
                         current_auction = []
                         current_play = []
                         current_hands = {}
-                    
-                    # Set new ID (e.g., 'o1')
-                    current_board_id = tokens[i+1]
+                        current_claimed_tricks = None
+                    current_board_id = tokens[i+1].strip()
                     i += 1
 
-            # 2. PLAYERS (pn)
             elif tag == 'pn':
                 if i+1 < len(tokens):
                     p_str = tokens[i+1]
                     names = p_str.split(',')
-                    # Usually: South, West, North, East
                     seats = ['S', 'W', 'N', 'E']
                     for idx, name in enumerate(names):
-                        if idx < 4:
-                            current_players[seats[idx]] = name
+                        if idx < 4: current_players[seats[idx]] = name.strip()
                     i += 1
 
-            # 3. DEAL (md)
             elif tag == 'md':
                 if i+1 < len(tokens):
-                    deal_str = tokens[i+1]
-                    # Format: digit{South},{West},{North},{East}
-                    # e.g., "1S...H...,...,..."
-                    
+                    deal_str = tokens[i+1].strip()
                     if deal_str and deal_str[0].isdigit():
                         dealer_digit = deal_str[0]
                         current_dealer = cls.DEALER_MAP.get(dealer_digit, 'S')
                         
-                        # The hands follow the dealer digit
                         hands_part = deal_str[1:]
                         hand_strs = hands_part.split(',')
-                        
-                        # LIN hands are ALWAYS ordered: South, West, North, East
-                        # Regardless of who the dealer is.
                         seats = ['S', 'W', 'N', 'E']
                         temp_hands = {}
-                        
                         for idx, h_str in enumerate(hand_strs):
                             if idx < 4:
                                 temp_hands[seats[idx]] = cls._parse_hand_string(h_str)
-                        
                         current_hands = temp_hands
                     i += 1
 
-            # 4. VULNERABILITY (sv)
             elif tag == 'sv':
                 if i+1 < len(tokens):
-                    v_code = tokens[i+1]
-                    current_vul = cls.VUL_MAP.get(v_code, 'None')
+                    current_vul = cls.VUL_MAP.get(tokens[i+1].strip(), 'None')
                     i += 1
 
-            # 5. BIDS (mb) - These appear sequentially
             elif tag == 'mb':
                 if i+1 < len(tokens):
-                    bid = tokens[i+1]
-                    # Normalize bid strings (e.g., 'p' -> 'PASS') if desired
-                    # For now keep raw
-                    if bid:
-                        current_auction.append(bid)
+                    bid = tokens[i+1].strip()
+                    if bid: current_auction.append(bid)
                     i += 1
 
-            # 6. PLAY (pc) - These appear sequentially
             elif tag == 'pc':
                 if i+1 < len(tokens):
-                    card = tokens[i+1]
-                    if card:
-                        current_play.append(card)
+                    card = tokens[i+1].strip()
+                    if card: current_play.append(card)
+                    i += 1
+
+            elif tag == 'mc':
+                if i+1 < len(tokens):
+                    val = tokens[i+1].strip()
+                    if val.isdigit(): current_claimed_tricks = int(val)
                     i += 1
 
             i += 1
             
-        # Commit the final game found in the file
         if current_hands:
             commit_game()
             
         return games
-
-# Example Check
-if __name__ == "__main__":
-    # A dummy LIN string fragment for testing
-    # Board o1, Dealer South, Vul None
-    # South holds Spades AKQ...
-    # Auction: 1NT - Pass...
-    dummy_lin = "qx|o1|pn|SouthBot,WestBot,NorthBot,EastBot|md|1SAKQHAKQD432C432,S432...||sv|0|mb|1N|mb|p|mb|p|mb|p|pc|S4|"
-    
-    parsed_games = LinParser.parse_content(dummy_lin)
-    for g in parsed_games:
-        print(f"Board: {g.board_id}")
-        print(f"Dealer: {g.dealer}")
-        print(f"South Hand S: {g.hands['S'].get('S')}")
-        print(f"Auction: {g.auction}")
-        print(f"Play Start: {g.play_log}")

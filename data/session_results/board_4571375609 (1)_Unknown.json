@@ -1,0 +1,133 @@
+{
+  "facts": {
+    "board": "Unknown",
+    "source_file": "4571375609 (1)",
+    "dealer": "East",
+    "vulnerability": "All",
+    "hands": {
+      "North": {
+        "name": "BeaPercy",
+        "stats": {
+          "hcp": 11,
+          "cards": {
+            "S": "7A",
+            "H": "2378K",
+            "D": "2J",
+            "C": "589K"
+          }
+        }
+      },
+      "South": {
+        "name": "Fish075",
+        "stats": {
+          "hcp": 12,
+          "cards": {
+            "S": "269",
+            "H": "5J",
+            "D": "8TQK",
+            "C": "36QA"
+          }
+        }
+      },
+      "East": {
+        "name": "bobj245",
+        "stats": {
+          "hcp": 2,
+          "cards": {
+            "S": "JT84",
+            "H": "T964",
+            "D": "976",
+            "C": "J4"
+          }
+        }
+      },
+      "West": {
+        "name": "georgenamg",
+        "stats": {
+          "hcp": 15,
+          "cards": {
+            "S": "35QK",
+            "H": "QA",
+            "D": "345A",
+            "C": "27T"
+          }
+        }
+      }
+    },
+    "auction": [
+      "p",
+      "1D",
+      "1S",
+      "2H",
+      "p",
+      "3C",
+      "p",
+      "p",
+      "p"
+    ],
+    "contract": "3C",
+    "declarer": "S",
+    "declarer_full": "South",
+    "tricks_taken": 0,
+    "result_display": "3C -9",
+    "doubled": "",
+    "handviewer_url": "http://www.bridgebase.com/tools/handviewer.html?n=s7Ah2378Kd2Jc589K&s=s269h5Jd8TQKc36QA&e=sJT84hT964d976cJ4&w=s35QKhQAd345Ac27T&d=e&v=b&b=Unknown&a=p-1D-1S-2H-p-3C-p-p-p"
+  },
+  "dds": {
+    "N": {
+      "S": 6,
+      "H": 8,
+      "D": 8,
+      "C": 10,
+      "N": 8
+    },
+    "S": {
+      "S": 6,
+      "H": 8,
+      "D": 8,
+      "C": 10,
+      "N": 8
+    },
+    "E": {
+      "S": 7,
+      "H": 4,
+      "D": 4,
+      "C": 3,
+      "N": 5
+    },
+    "W": {
+      "S": 7,
+      "H": 4,
+      "D": 5,
+      "C": 3,
+      "N": 5
+    }
+  },
+  "ai_analysis": {
+    "verdict": "Very weak hand, pass is the correct action.",
+    "actual_critique": [
+      "With only 2 HCP and a flat distribution, this hand offers very little to the partnership.",
+      "The hand lacks significant suit length or strength to justify opening the bidding."
+    ],
+    "basic_section": {
+      "analysis": "This hand is very weak. With only 2 high card points (HCP), you don't have enough strength to start the bidding. Your distribution is also fairly flat (4-4-3-2), meaning you don't have a long suit to rely on for tricks. The best course of action is to pass and let your partner bid if they have a stronger hand.",
+      "recommended_auction": [
+        {
+          "bid": "Pass",
+          "explanation": "Insufficient strength to open the bidding."
+        }
+      ]
+    },
+    "advanced_section": {
+      "analysis": "The double dummy analysis showing a potential for N/S to make 10 clubs is irrelevant in the auction since you have no basis to get to that contract. Trying to force a bid with such a weak hand is statistically likely to result in a poor outcome. Focus on defense if partner also passes. If partner opens, a response will depend on their bid and your judgement of the overall partnership strength.",
+      "sequence": []
+    },
+    "coaches_corner": [
+      {
+        "player": "North",
+        "category": "Strategy",
+        "topic": "Avoid forcing the bidding with very weak hands. A sound defense is often more profitable."
+      }
+    ]
+  }
+}
