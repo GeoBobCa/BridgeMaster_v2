@@ -1,6 +1,7 @@
 {
   "facts": {
     "board": "Unknown",
+    "board_raw": "Unknown",
     "source_file": "4571361325",
     "dealer": "East",
     "vulnerability": "EW",
@@ -106,30 +107,29 @@
     }
   },
   "ai_analysis": {
-    "verdict": "Weak hand, best to pass initially.",
+    "verdict": "Weak hand, Pass pre-emptively.",
     "actual_critique": [
-      "With only 7 HCP and a 5-3-3-2 distribution, this hand is too weak to open the bidding.",
-      "While you have a five-card spade suit, the lack of high card points makes a preemptive opening risky."
+      "With only 7 HCP and a 5-3-3-2 distribution, your hand lacks the strength to open the bidding.",
+      "Passing is the correct initial action, as you don't have enough high card points or distributional features to justify an opening bid."
     ],
     "basic_section": {
-      "analysis": "This hand contains only 7 high card points (HCP). The standard guideline for opening the bidding is 12 HCP or more. Since this hand falls far short of that requirement, the best action is to pass. The distribution is somewhat favorable with a five-card spade suit, but not strong enough to compensate for the lack of points. Avoid the temptation to bid just because you have a five-card suit.",
+      "analysis": "At the bridge table, you need a certain amount of points to start the bidding. These points come from high cards (like Aces, Kings, Queens, and Jacks) and from a long suit. With only 7 high card points and no exceptionally long suit, your hand is considered weak. The standard approach is to pass and wait to see what the other players bid.",
       "recommended_auction": [
         {
-          "bid": "PASS",
-          "explanation": "Insufficient high card points to open."
+          "bid": "1S",
+          "explanation": "If you had 12+ points and 5+ spades you would open 1 spade."
         }
       ]
     },
     "advanced_section": {
-      "analysis": "The double dummy analysis indicates that North-South could potentially make 10 tricks in clubs with optimal play. However, reaching such a contract from this hand would be highly unlikely and depend heavily on partner's strength and the opponents' bidding. The 5-3-3-2 distribution offers limited defensive value. A forcing opening would likely lead to an overbid and a poor result.",
+      "analysis": "The Double Dummy Analysis suggests a high ceiling for North/South in Clubs (10 tricks) and for East/West in Spades (6 tricks). However, with only 7 HCP, you lack the control to influence the hand positively. Even if partner opens, you'll need to evaluate carefully before responding, considering the overall vulnerability and the developing auction. Focus on accurately describing your hand later, should an opportunity arise.",
       "sequence": []
     },
     "coaches_corner": [
       {
-        "player": "General",
-        "category": "Strategy",
-        "topic": "Patience",
-        "advice": "Sometimes the best play is to sit back and let the opponents bid. Don't force a bid with a weak hand."
+        "player": "North",
+        "category": "Tip",
+        "topic": "Advice"
       }
     ]
   }

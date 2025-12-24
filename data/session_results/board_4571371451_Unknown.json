@@ -1,6 +1,7 @@
 {
   "facts": {
     "board": "Unknown",
+    "board_raw": "Unknown",
     "source_file": "4571371451",
     "dealer": "North",
     "vulnerability": "EW",
@@ -104,30 +105,29 @@
     }
   },
   "ai_analysis": {
-    "verdict": "Weak hand, pass is a reasonable choice.",
+    "verdict": "Weak hand, pass is the most appropriate action.",
     "actual_critique": [
-      "With only 8 HCP and a flat distribution (4-4-3-2), your hand lacks the strength to initiate the bidding.",
-      "Double Dummy Analysis suggests N/S can make 8 Hearts or Clubs if they have a strong hand and good support, but your hand doesn't contribute significantly to achieving that.",
-      "E/W could make 8 Spades. Your hand does not contribute to stopping them."
+      "With only 8 HCP and a 4-4-3-2 distribution, you lack sufficient strength to open the bidding.",
+      "The double dummy analysis suggests a high ceiling for both N/S in hearts or clubs and E/W in spades, highlighting the importance of defense if partner opens the bidding."
     ],
     "basic_section": {
-      "analysis": "As a beginner, focus on the High Card Points (HCP).  You generally need around 12+ HCP to open the bidding at the one level, or fewer points to overcall or respond.  With only 8 HCP, it's best to pass and let your partner bid if they have the strength.",
+      "analysis": "As a beginner, it's important to understand that opening bids require a certain amount of high card points (HCP). Generally, you need at least 12 HCP to open the bidding at the one level. With only 8 HCP, your hand is too weak to open. Passing is the correct decision.",
       "recommended_auction": [
         {
           "bid": "PASS",
-          "explanation": "With 8 HCP and a flat hand, passing is the most appropriate action. Let partner open if they have enough points."
+          "explanation": "With only 8 HCP, there is no bid."
         }
       ]
     },
     "advanced_section": {
-      "analysis": "While the hand is weak, the distribution could become relevant later in the auction. If partner opens and shows a specific suit, evaluate whether your 4-card support or shortness in another suit provides any value. With a game forcing hand by partner, this hand has little use.",
+      "analysis": "The double dummy analysis indicates possible game contracts based on optimal play. However, with your weak hand, focusing on accurate defense if the opponents bid is paramount. Pay close attention to suit preference signals from your partner and the fall of the cards to anticipate declarer's plan.",
       "sequence": []
     },
     "coaches_corner": [
       {
         "player": "North",
         "category": "Tip",
-        "topic": "Opening Bids: Remember the general guidelines for opening bids. Focus on having at least 12 HCP and a reasonable suit holding. Don't be tempted to bid just because you are the dealer."
+        "topic": "Be patient and wait for a better hand to open. Forcing an opening bid with insufficient strength can lead to negative consequences."
       }
     ]
   }

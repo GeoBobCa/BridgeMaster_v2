@@ -1,6 +1,7 @@
 {
   "facts": {
     "board": "Unknown",
+    "board_raw": "Unknown",
     "source_file": "4571375609 (1)",
     "dealer": "East",
     "vulnerability": "All",
@@ -104,29 +105,30 @@
     }
   },
   "ai_analysis": {
-    "verdict": "Very weak hand, pass is the correct action.",
+    "verdict": "Very weak hand, pass and let partner bid.",
     "actual_critique": [
-      "With only 2 HCP and a flat distribution, this hand offers very little to the partnership.",
-      "The hand lacks significant suit length or strength to justify opening the bidding."
+      "With only 2 HCP and a flat distribution (4-4-3-2), your hand lacks the strength to actively bid at the one level.",
+      "The double dummy analysis suggests a high ceiling for N/S in Clubs (10 tricks), but your hand offers no support for that suit.",
+      "Passing is the most prudent action, allowing your partner to describe their hand first."
     ],
     "basic_section": {
-      "analysis": "This hand is very weak. With only 2 high card points (HCP), you don't have enough strength to start the bidding. Your distribution is also fairly flat (4-4-3-2), meaning you don't have a long suit to rely on for tricks. The best course of action is to pass and let your partner bid if they have a stronger hand.",
+      "analysis": "This hand is extremely weak and doesn't have enough high card points (HCP) to open the bidding. A good general rule is to have at least 12 HCP to open the bidding at the one level. Your distribution is also relatively flat, meaning you don't have a long suit to compensate for the lack of HCP. Therefore, the best course of action is to pass and let your partner bid if they have sufficient strength.",
       "recommended_auction": [
         {
           "bid": "Pass",
-          "explanation": "Insufficient strength to open the bidding."
+          "explanation": "With only 2 HCP and a flat distribution, passing is the safest and most appropriate action. Let your partner open the bidding if they have sufficient points."
         }
       ]
     },
     "advanced_section": {
-      "analysis": "The double dummy analysis showing a potential for N/S to make 10 clubs is irrelevant in the auction since you have no basis to get to that contract. Trying to force a bid with such a weak hand is statistically likely to result in a poor outcome. Focus on defense if partner also passes. If partner opens, a response will depend on their bid and your judgement of the overall partnership strength.",
+      "analysis": "While double dummy analysis suggests a high potential for N/S in Clubs, this analysis assumes perfect play and knowledge of all cards. In reality, without significant support for Clubs or considerable high card strength, reaching that potential is unlikely. Opening with a preemptive bid is not advisable given the lack of length and strength.",
       "sequence": []
     },
     "coaches_corner": [
       {
         "player": "North",
-        "category": "Strategy",
-        "topic": "Avoid forcing the bidding with very weak hands. A sound defense is often more profitable."
+        "category": "Tip",
+        "topic": "Patience"
       }
     ]
   }

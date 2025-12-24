@@ -1,6 +1,7 @@
 {
   "facts": {
     "board": "Unknown",
+    "board_raw": "Unknown",
     "source_file": "4571377417",
     "dealer": "South",
     "vulnerability": "None",
@@ -104,31 +105,30 @@
     }
   },
   "ai_analysis": {
-    "verdict": "Weak hand, likely best to pass initially.",
+    "verdict": "Weak hand, but potential for spade support.",
     "actual_critique": [
-      "With only 7 HCP and a 5-3-3-2 distribution, your hand lacks the strength to confidently open the bidding.",
-      "The double dummy analysis suggests that with optimal play, North/South can take up to 9 Diamond tricks, and East/West can take up to 10 Heart tricks, highlighting the vulnerability.",
-      "While you have a 5-card Spade suit, the low HCP makes it a borderline decision to open 1 Spade. A conservative approach is to pass and see what partner does."
+      "With only 7 HCP, a pass is a reasonable starting point.",
+      "The 5-card spade suit offers potential for defense or support if partner opens.",
+      "The hand is quite distributional, suggesting potential value in a suit contract."
     ],
     "basic_section": {
-      "analysis": "As a beginner, remember to primarily consider your high card points (HCP) when deciding whether to open the bidding. Generally, 12+ HCP is needed to open. Your hand has only 7 HCP, meaning you are likely too weak to initiate the bidding process.",
+      "analysis": "As a beginner, understand that this hand has limited high card strength (7 HCP). The general guideline is to open the bidding with 12 or more HCP. Passing is the standard action. However, you should pay attention to the auction and be ready to support spades if your partner opens the bidding and shows spade interest.",
       "recommended_auction": [
         {
-          "bid": "PASS",
-          "explanation": "With only 7 HCP, it's best to pass and see what your partner bids. You can then evaluate your hand again based on their bid."
+          "bid": "1S",
+          "explanation": "If partner opens a suit, you can respond at the one level with your 5-card spade suit."
         }
       ]
     },
     "advanced_section": {
-      "analysis": "The double dummy analysis provides insights into the theoretical maximum number of tricks each side can take with perfect play. This information isn't available during the actual game but is useful for post-game analysis. With your weak hand, any active bidding might lead to overbidding and a poor contract. Keeping the auction low and gathering information is a better strategy.",
+      "analysis": "While a pass is the standard action, consider the vulnerability and partnership style. In some aggressive partnerships, a light opening bid might be considered. However, with only 7 HCP and a flat distribution, it's generally best to pass and wait for partner's bid. The double dummy analysis shows that hearts are a strong suit for the opponents, so avoiding that suit would be beneficial. Consider negative doubles if partner opens and the next player overcalls.",
       "sequence": []
     },
     "coaches_corner": [
       {
-        "player": "General",
-        "category": "Strategy",
-        "topic": "Conservative Bidding",
-        "advice": "When in doubt with a weak hand, it is usually better to pass and let the opponents do the work. You may get a chance to support partner later."
+        "player": "North",
+        "category": "Tip",
+        "topic": "Be prepared to support spades if partner opens. Your 5-card suit can provide valuable support."
       }
     ]
   }

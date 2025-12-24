@@ -1,6 +1,7 @@
 {
   "facts": {
     "board": "Unknown",
+    "board_raw": "Unknown",
     "source_file": "4571368336",
     "dealer": "West",
     "vulnerability": "None",
@@ -103,30 +104,29 @@
     }
   },
   "ai_analysis": {
-    "verdict": "Pass is a reasonable choice with a balanced 16 HCP, but consider a 1NT opening bid.",
+    "verdict": "A good hand for 1NT opening, but PASS is correct over partner's opening.",
     "actual_critique": [
-      "With 16 HCP and a balanced hand (4-3-3-3 distribution), opening 1NT is standard and appropriate.",
-      "Double Dummy analysis suggests that N/S have limited game contracts, so opening light might be risky.",
-      "Responder suggestion is PASS."
+      "With 16 HCP and a balanced distribution (4-3-3-3), your hand is ideal for a 1NT opening bid.",
+      "However, as Responder, you are listening to partner's opening bid. The suggestion to PASS is accurate because your partner's 1NT bid typically shows 15-17 HCP. Your hand does not have enough strength to justify bidding further."
     ],
     "basic_section": {
-      "analysis": "As the Dealer, you have the first opportunity to bid. With 16 high card points (HCP) and a balanced distribution (meaning no voids or singletons, and at least two cards in every suit), a 1NT opening bid is a standard and strong choice. This bid shows partner you have a good hand (15-17 HCP) and a relatively even distribution of cards. This allows partner to make informed decisions about the final contract. While passing is safe, it misses an opportunity to describe your hand accurately.",
+      "analysis": "As opener, you have a textbook no trump hand. With 16 high card points and a balanced distribution (no voids or singletons, and no more than one doubleton), you should open 1NT, showing partner your hand. As responder, your job is to assess your hand in light of partner's bid. With only 16 HCP between the two hands, it's best to PASS.",
       "recommended_auction": [
         {
           "bid": "1NT",
-          "explanation": "Shows a balanced hand with 15-17 HCP."
+          "explanation": "Standard opening bid showing 15-17 HCP and a balanced hand (4-3-3-3 or 4-4-3-2 distribution)."
         }
       ]
     },
     "advanced_section": {
-      "analysis": "Although a 1NT opening is standard, it's worth noting the Double Dummy analysis suggests North-South's ceiling is only 4 of a minor. This information, unavailable at the bidding stage, highlights the importance of partnership understanding about when to open light (e.g., with a very distributional hand, or with a good 5-card suit) and when to stick to the standard 15-17 range for 1NT. If your partnership style is conservative, passing might be a reasonable alternative to avoid overbidding.",
+      "analysis": "Even though the double dummy analysis shows potential for game in Diamonds or Clubs, these outcomes depend heavily on the opponents' hands and optimal play. Without additional strength as Responder, it's unwise to gamble on a game contract.",
       "sequence": []
     },
     "coaches_corner": [
       {
         "player": "North",
         "category": "Tip",
-        "topic": "Be prepared to transfer to a major if South opens 1NT and you have a 5+ card major suit."
+        "topic": "Balanced Hand Evaluation"
       }
     ]
   }

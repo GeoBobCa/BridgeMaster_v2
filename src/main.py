@@ -5,6 +5,7 @@ import sys
 import os
 import json
 import glob
+import re
 from pathlib import Path
 from loguru import logger
 
@@ -21,7 +22,22 @@ logger.add(sys.stderr, format="<green>{time:HH:mm:ss}</green> | <level>{message}
 
 OUTPUT_DIR = "data/session_results"
 
-# --- HELPER FUNCTIONS (Unchanged) ---
+def clean_board_name(raw_id):
+    """
+    Converts 'o1' -> 'Board 1', '14' -> 'Board 14'.
+    Keeps custom names like 'SemiFinals' intact.
+    """
+    # Remove 'o' (Open) or 'c' (Closed) prefix if followed by a number
+    if re.match(r'^[oc]\d+$', raw_id):
+        number = raw_id[1:]
+        return f"Board {number}"
+    
+    # If it's just a raw number, add "Board "
+    if raw_id.isdigit():
+        return f"Board {raw_id}"
+        
+    return raw_id
+
 def calculate_hcp(hand_dict):
     hcp = 0
     values = {'A': 4, 'K': 3, 'Q': 2, 'J': 1}
@@ -54,12 +70,10 @@ def format_result_display(contract, tricks_taken):
     except:
         return contract
 
-# --- CORE LOGIC ---
 def process_file(file_path: str):
     logger.info(f"Processing file: {file_path}")
     
-    # Extract filename prefix (e.g. "monday_session" from "data/monday_session.lin")
-    # We use this to ensure Board 1 from File A doesn't overwrite Board 1 from File B
+    # Get the file name (e.g. "Tournament_A" from "data/Tournament_A.lin")
     file_stem = Path(file_path).stem
     
     parser = LinParser()
@@ -71,7 +85,10 @@ def process_file(file_path: str):
     logger.info(f"Found {len(games)} boards in {file_stem}.")
 
     for i, game in enumerate(games):
-        # 1. ANALYSIS
+        # 1. CLEAN THE NAME
+        display_name = clean_board_name(game.board_id)
+
+        # 2. ANALYSIS
         dealer_metrics = referee.analyze_dealer_opening(game.dealer, game.hands[game.dealer], game.vulnerability)
         
         responder_metrics = None
@@ -86,19 +103,21 @@ def process_file(file_path: str):
         contract, declarer, dbl = ContractSolver.get_contract(game.dealer, game.auction)
         tricks = game.claimed_tricks if game.claimed_tricks is not None else 0
         
-        # 2. AI GENERATION
+        # 3. AI GENERATION
+        # Pass the "Display Name" to the AI so it says "In Board 1..." instead of "In o1..."
         hv_url = HandViewer.generate_url(game)
-        ai_data = storyteller.generate_commentary(game.board_id, dealer_metrics, responder_metrics, dd_summary)
+        ai_data = storyteller.generate_commentary(display_name, dealer_metrics, responder_metrics, dd_summary)
 
-        # 3. SAVE JSON
+        # 4. SAVE JSON
         full_dealer = {'N':'North', 'S':'South', 'E':'East', 'W':'West'}.get(game.dealer, game.dealer)
         full_declarer = {'N':'North', 'S':'South', 'E':'East', 'W':'West'}.get(declarer, declarer)
         result_str = format_result_display(contract, tricks)
 
         full_record = {
             "facts": {
-                "board": game.board_id,
-                "source_file": file_stem, # Track which file this came from
+                "board": display_name,     # Now "Board 1"
+                "board_raw": game.board_id, # Keep "o1" just in case
+                "source_file": file_stem,  # "Tournament_A"
                 "dealer": full_dealer,
                 "vulnerability": game.vulnerability,
                 "hands": enrich_hand_data(game),
@@ -116,6 +135,7 @@ def process_file(file_path: str):
         }
         
         # Unique Filename: board_{FILE}_{BOARDID}.json
+        # This ensures collisions are impossible if you have 16 files of "Board 1"
         filename = f"board_{file_stem}_{game.board_id}.json"
         
         with open(os.path.join(OUTPUT_DIR, filename), "w", encoding="utf-8") as f:
@@ -129,7 +149,6 @@ def main():
     input_path = sys.argv[1]
     
     if os.path.isdir(input_path):
-        # BATCH MODE: Find all .lin files in directory
         print(f"📂 Batch Mode: Scanning {input_path}...")
         lin_files = glob.glob(os.path.join(input_path, "*.lin"))
         if not lin_files:
@@ -143,7 +162,6 @@ def main():
             except Exception as e:
                 logger.error(f"Failed to process {f}: {e}")
     else:
-        # SINGLE FILE MODE
         process_file(input_path)
 
 if __name__ == "__main__":

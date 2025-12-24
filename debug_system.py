@@ -1,36 +1,51 @@
-import sys
+"""
+debug_system.py
+Checks why the docs folder is empty.
+"""
 import os
+import glob
+from pathlib import Path
 
-print("--- DIAGNOSTIC START ---")
+ROOT = Path(__file__).parent
+DATA_DIR = ROOT / "data"
+LIN_FILES = list(DATA_DIR.glob("*.lin"))
+JSON_DIR = DATA_DIR / "session_results"
+JSON_FILES = list(JSON_DIR.glob("*.json"))
+DOCS_DIR = ROOT / "docs"
+HTML_FILES = list(DOCS_DIR.glob("*.html"))
 
-# 1. CHECK PYTHON ENVIRONMENT
-print(f"Python Executable: {sys.executable}")
+print(f"--- DIAGNOSTIC REPORT ---")
+print(f"ROOT: {ROOT}")
 
-# 2. CHECK DATA FILE CONTENT
-file_path = "data/test_hands.lin"
-print(f"\nChecking file: {file_path}")
-if os.path.exists(file_path):
-    with open(file_path, 'r') as f:
-        content = f.read()
-        print(f"File Length: {len(content)} chars")
-        print(f"First 100 chars: {content[:100]}")
-        if "..." in content:
-            print("CRITICAL ALERT: File contains '...' dots! It is the OLD data.")
-        else:
-            print("Status: Data looks clean (No dots found).")
+print(f"\n1. INPUT CHECK (Data Folder)")
+if not LIN_FILES:
+    print("❌ ERROR: No .lin files found in /data/")
 else:
-    print("ERROR: File not found!")
+    print(f"✅ Found {len(LIN_FILES)} .lin files.")
 
-# 3. CHECK ENDPLAY IMPORT
-print("\nAttempting to import endplay...")
-try:
-    import endplay
-    print(f"SUCCESS: endplay version {getattr(endplay, '__version__', 'unknown')} is installed.")
-    from endplay.types import Deal
-    print("SUCCESS: endplay.types loaded.")
-except ImportError as e:
-    print(f"FAILURE: Could not import endplay. Error: {e}")
-except Exception as e:
-    print(f"FAILURE: endplay crashed on load (DLL issue?). Error: {e}")
+print(f"\n2. INTERMEDIATE CHECK (Session Results)")
+if not JSON_DIR.exists():
+    print("❌ ERROR: /data/session_results folder does not exist.")
+elif not JSON_FILES:
+    print("❌ ERROR: Folder exists but is EMPTY. The Parser/Analysis failed to save any hands.")
+else:
+    print(f"✅ Found {len(JSON_FILES)} JSON result files.")
 
-print("--- DIAGNOSTIC END ---")
+print(f"\n3. OUTPUT CHECK (Docs Folder)")
+if not DOCS_DIR.exists():
+    print("❌ ERROR: /docs folder does not exist.")
+elif not HTML_FILES:
+    print("❌ ERROR: Folder exists but is EMPTY. The Web Generator ran but produced nothing.")
+else:
+    print(f"✅ Found {len(HTML_FILES)} HTML files.")
+
+print("\n--- CONCLUSION ---")
+if not LIN_FILES:
+    print("👉 ACTION: Put .lin files in the /data/ folder.")
+elif not JSON_FILES:
+    print("👉 ACTION: The problem is the PARSER. It is reading the LIN files but discarding them (probably the 39-card deck error).")
+    print("   Make sure you updated 'src/parsers/lin_parser.py' with the code that fixes missing hands.")
+elif not HTML_FILES:
+    print("👉 ACTION: The problem is the WEB GENERATOR. It sees the JSON files but fails to render them.")
+else:
+    print("❓ Everything looks fine? Check if you are looking in the right folder.")

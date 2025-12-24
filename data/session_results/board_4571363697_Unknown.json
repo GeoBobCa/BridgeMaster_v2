@@ -1,6 +1,7 @@
 {
   "facts": {
     "board": "Unknown",
+    "board_raw": "Unknown",
     "source_file": "4571363697",
     "dealer": "South",
     "vulnerability": "All",
@@ -111,28 +112,28 @@
   "ai_analysis": {
     "verdict": "Weak hand, pass pre-emptively.",
     "actual_critique": [
-      "With only 9 HCP and a 4-4-3-2 distribution, passing is the most reasonable action as dealer.",
-      "The double dummy analysis shows potential for 8 tricks in Diamonds or Clubs for N/S, but this requires optimal play and a suitable partner hand. It is unlikely you can achieve this from the opening lead."
+      "With only 9 HCP and a relatively flat distribution (4-4-3-2), your hand lacks the strength to actively bid at the one level.",
+      "The dealer suggestion to pass is appropriate based on standard bidding conventions."
     ],
     "basic_section": {
-      "analysis": "As the dealer with only 9 high card points, you have insufficient strength to open the bidding. Your distribution is relatively flat, which further reduces the hand's value. The best course of action is to pass and wait to see what the other players bid.",
+      "analysis": "As a beginner, understand that opening bids usually require around 12 HCP or a very distributional hand (e.g., a long suit). Your hand falls short of this threshold. Passing is the safest and most conventional action. With a 4-4-3-2 shape, you do not have enough length in any suit to justify opening a suit bid aggressively with your limited points.",
       "recommended_auction": [
         {
           "bid": "PASS",
-          "explanation": "Insufficient strength to open."
+          "explanation": "The best course of action is to pass and await further developments from your partner and opponents."
         }
       ]
     },
     "advanced_section": {
-      "analysis": "While the double dummy analysis suggests a high ceiling with optimal play, this relies heavily on partner's hand and the opponents' bidding. Attempting to force the bidding with a weak hand like this is risky and could lead to a significant penalty.",
+      "analysis": "A more experienced player might consider the vulnerability and opponents' tendencies. However, even with favorable vulnerability, a pass is still preferable. Opening light with a hand of this type could lead to getting doubled and incurring a penalty, especially if partner has a weak hand as well. The double dummy analysis suggesting 8 tricks in diamonds or clubs for N/S does not mean that you can necessarily achieve this in practice. It is optimal play based on seeing all the cards.",
       "sequence": []
     },
     "coaches_corner": [
       {
         "player": "General",
         "category": "Strategy",
-        "topic": "Patience",
-        "advice": "In bridge, patience is key. Not every hand is a winner. Sometimes the best play is to pass and let the opponents make mistakes."
+        "topic": "Hand Evaluation",
+        "advice": "Always carefully evaluate your hand before bidding. Consider your point count, distribution, and vulnerability. Don't be afraid to pass if your hand is weak."
       }
     ]
   }
